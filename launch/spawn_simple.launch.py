@@ -96,7 +96,7 @@ def generate_launch_description():
     
   declare_use_sim_time_cmd = DeclareLaunchArgument(
     name='use_sim_time',
-    default_value='true',
+    default_value='True',
     description='Use simulation (Gazebo) clock if true')
 
   declare_use_simulator_cmd = DeclareLaunchArgument(
@@ -113,13 +113,15 @@ def generate_launch_description():
   start_robot_state_publisher_cmd = Node(
     package='robot_state_publisher',
     executable='robot_state_publisher',
-    parameters=[{'robot_description': Command(['xacro ', urdf_model])}])
+    parameters=[{'robot_description': Command(['xacro ', urdf_model])}, 
+                {'use_sim_time': True}])
 
   # Publish the joint states of the robot
   start_joint_state_publisher_cmd = Node(
     package='joint_state_publisher',
     executable='joint_state_publisher',
     name='joint_state_publisher',
+    parameters=[{'use_sim_time': True}],
     condition=UnlessCondition(gui))
 
   # Launch RViz
@@ -128,6 +130,7 @@ def generate_launch_description():
     executable='rviz2',
     name='rviz2',
     output='screen',
+    parameters=[{'use_sim_time': True}],
     arguments=['-d', rviz_config_file])
 
   # Start Gazebo server
