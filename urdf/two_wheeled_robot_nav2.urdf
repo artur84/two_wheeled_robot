@@ -47,6 +47,10 @@
       <inertia ixx="${(2/5) * m * (r*r)}" ixy="0.0" ixz="0.0" iyy="${(2/5) * m * (r*r)}" iyz="0.0" izz="${(2/5) * m * (r*r)}"/>
     </inertial>
   </xacro:macro>
+
+  <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
   
   <!-- ********************** ROBOT BASE *********************************  -->
   <link name="base_link">
@@ -298,21 +302,21 @@
   <gazebo reference="lidar_link">
     <sensor name="lidar" type="ray">
       <always_on>true</always_on>
-      <visualize>true</visualize>
+      <visualize>false</visualize>
       <update_rate>5</update_rate>
       <ray>
         <scan>
           <horizontal>
-            <samples>120</samples>
+            <samples>360</samples>
             <resolution>1.000000</resolution>
             <min_angle>-3.14159</min_angle>
             <max_angle>3.14159</max_angle>
           </horizontal>
         </scan>
         <range>
-          <min>0.3</min>
-          <max>15.0</max>
-          <resolution>0.015</resolution>
+          <min>0.15</min>
+          <max>8.0</max>
+          <resolution>0.01</resolution>
         </range>
         <noise>
           <type>gaussian</type>
@@ -322,7 +326,7 @@
       </ray>
       <plugin name="scan" filename="libgazebo_ros_ray_sensor.so">
         <ros>
-          <remapping>~/out:=scan</remapping>
+          <remapping>~/out:=base_scan</remapping>
         </ros>
         <output_type>sensor_msgs/LaserScan</output_type>
         <frame_name>lidar_link</frame_name>
@@ -351,8 +355,8 @@
       <wheel_diameter>0.28</wheel_diameter>
 
       <!-- limits -->
-      <max_wheel_torque>20</max_wheel_torque>
-      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <max_wheel_torque>200</max_wheel_torque>
+      <max_wheel_acceleration>10.0</max_wheel_acceleration>
 
       <!-- Receive velocity commands on this ROS topic -->
       <command_topic>cmd_vel</command_topic>
@@ -363,7 +367,7 @@
 
       <!-- When true, publish coordinate transform from odom to base_footprint -->
       <!-- I usually use the robot_localization package to publish this transform -->   
-      <publish_odom_tf>false</publish_odom_tf>
+      <publish_odom_tf>true</publish_odom_tf>
     
       <!-- When true, publish coordinate transform from base_link to the wheels -->
       <!-- The robot_state_publisher package is often used to publish this transform -->   
@@ -372,11 +376,83 @@
       <odometry_topic>odom</odometry_topic>
       <odometry_frame>odom</odometry_frame>
       <robot_base_frame>base_link</robot_base_frame>
-
+       <!-- Odometry source, 0 for ENCODER, 1 for WORLD, defaults to WORLD -->
       <odometry_source>1</odometry_source>
       <ros>
-        <remapping>odom:=wheel/odometry</remapping>
+        <remapping>odom:=odom</remapping>
       </ros>
     </plugin>
   </gazebo>
+
+  <!-- *********************** ADD A CAMERA ***************************    --> 
+  <link name="camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.07 0.3 0.09"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.07 0.3 0.09"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <xacro:box_inertia m="0.01" w="0.07" d="0.3" h="0.09"/>
+  </link>
+
+  <gazebo reference="camera_link">
+    <mu1>0.01</mu1>
+    <mu2>0.01</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <joint name="camera_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="${base_length/2} 0 ${base_height/7}"/>
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <!-- ........................... CAMERA PLUGIN ................................... -->
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="camera1">
+      <update_rate>20</update_rate>
+      <camera name="base_camera">
+        <horizontal_fov>1.0</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <distortion>
+          <k1>0.0</k1>
+          <k2>0.0</k2>
+          <k3>0.0</k3>
+          <p1>0.0</p1>
+          <p2>0.0</p2>
+        </distortion>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>robot</namespace>
+          <argument>image_raw:=custom</argument>
+          <argument>camera_info:=camera_info</argument>
+        </ros>
+        <camera_name>camera1</camera_name>
+        <frame_name>camera_link</frame_name>
+        <hack_baseline>0.07</hack_baseline>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+
+
+
 </robot>
