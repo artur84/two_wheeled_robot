@@ -10,7 +10,7 @@ Panels:
         - /Image1/Topic1
         - /LaserScan1
       Splitter Ratio: 0.5
-    Tree Height: 355
+    Tree Height: 353
 Visualization Manager:
   Class: ""
   Displays:
@@ -79,11 +79,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        imu_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         lidar_link:
           Alpha: 1
           Show Axes: false
@@ -114,9 +109,9 @@ Visualization Manager:
           Value: true
         front_caster:
           Value: true
-        imu_link:
-          Value: true
         lidar_link:
+          Value: true
+        odom:
           Value: true
       Marker Scale: 0.30000001192092896
       Name: TF
@@ -135,10 +130,10 @@ Visualization Manager:
             {}
           front_caster:
             {}
-          imu_link:
-            {}
           lidar_link:
             {}
+        odom:
+          {}
       Update Interval: 0
       Value: true
     - Class: rviz_default_plugins/Image
@@ -210,35 +205,35 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 31.869173049926758
+      Distance: 3.8581204414367676
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.1595008373260498
-        Y: -1.3398375511169434
-        Z: 0.12751728296279907
+        X: 1.2585504055023193
+        Y: -1.30275297164917
+        Z: 0.2382015734910965
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7853981852531433
+      Pitch: 0.010398218408226967
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.7853981852531433
+      Yaw: 1.980398416519165
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 732
+  Height: 730
   Hide Left Dock: false
   Hide Right Dock: false
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd00000001000000000000015600000282fc0200000002fb000000100044006900730070006c006100790073010000003d000001ee000000c900fffffffb0000000a0049006d00610067006501000002310000008e0000002800ffffff000002050000028200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
-  Width: 865
-  X: 337
+  QMainWindow State: 000000ff00000000fd00000001000000000000015600000280fc0200000002fb000000100044006900730070006c006100790073010000003d000001ec000000c900fffffffb0000000a0049006d006100670065010000022f0000008e0000002800ffffff000003fe0000028000000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Width: 1370
+  X: 70
   Y: 27
