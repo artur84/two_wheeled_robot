@@ -11,10 +11,6 @@
   <xacro:property name="wheel_radius" value="0.14"/>
   <xacro:property name="wheel_width" value="0.06"/>
 
-  <!-- Define the shape of the lidar in meters -->
-  <xacro:property name="lidar_radius" value="0.05"/>
-  <xacro:property name="lidar_height" value="0.1"/>
-
   <!-- x-axis points forward, y-axis points to left, z-axis points upwards -->
   <!-- Define the gap between the wheel and chassis along y-axis in meters -->
   <xacro:property name="wheel_ygap" value="0.035"/>
@@ -59,9 +55,9 @@
   <!-- ********************** ROBOT BASE *********************************  -->
   <link name="base_link">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0 0 -0.05" rpy="1.5707963267949 0 3.141592654"/>
       <geometry>
-        <box size="${base_length} ${base_width} ${base_height}"/>
+        <mesh filename="file://$(find two_wheeled_robot)/meshes/robot_base.stl" />
       </geometry>
       <material name="Red">
         <color rgba="1.0 0.0 0.0 1.0"/>
@@ -117,11 +113,6 @@
 
       <xacro:cylinder_inertia m="0.5" r="${wheel_radius}" h="${wheel_width}"/>
     </link>
-    <gazebo reference="${prefix}_link">
-      <mu1>0.01</mu1>
-      <mu2>0.01</mu2>
-      <material>Gazebo/Black</material>
-    </gazebo>
 
     <!-- Connect the wheels to the base_link at the appropriate location, and 
          define a continuous joint to allow the wheels to freely rotate about
@@ -137,8 +128,8 @@
   <!-- Instantiate two wheels using the macro we just made through the 
        xacro:wheel tags. We also define the parameters to have one wheel
        on both sides at the back of our robot (i.e. x_reflect=-1). -->
-  <xacro:wheel prefix="drivewhl_l" x_reflect="1" y_reflect="1" />
-  <xacro:wheel prefix="drivewhl_r" x_reflect="1" y_reflect="-1" />
+  <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
+  <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
 
   <!-- *********************** CASTER WHEEL ******************************  -->
   <!-- We add a caster wheel. It will be modeled as sphere.
@@ -167,13 +158,13 @@
   <gazebo reference="front_caster">
     <mu1>0.01</mu1>
     <mu2>0.01</mu2>
-    <material>Gazebo/Black</material>
+    <material>Gazebo/White</material>
   </gazebo>
 
   <joint name="caster_joint" type="fixed">
     <parent link="base_link"/>
     <child link="front_caster"/>
-    <origin xyz="${-(caster_xoff)} 0.0 ${-(base_height/2)}" rpy="0 0 0"/>
+    <origin xyz="${caster_xoff} 0.0 ${-(base_height/2)}" rpy="0 0 0"/>
   </joint>
 
   <!-- *********************** IMU SETUP *********************************  -->
@@ -281,19 +272,23 @@
 
   <!-- *********************** LIDAR SETUP **********************************  -->
  <link name="lidar_link">
-    <xacro:cylinder_inertia m="0.1" r="${lidar_radius}" h="${lidar_height}"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.125"/>
+      <inertia ixx="0.001"  ixy="0"  ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+    </inertial>
 
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-         <cylinder radius="${lidar_radius}" length="${lidar_height}"/>
+         <cylinder radius="0.0508" length="0.75"/>
       </geometry>
     </collision>
 
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-         <cylinder radius="${lidar_radius}" length="${lidar_height}"/>
+         <cylinder radius="0.0508" length="0.75"/>
       </geometry>
     </visual>
   </link>
@@ -301,7 +296,7 @@
   <joint name="lidar_joint" type="fixed">
     <parent link="base_link"/>
     <child link="lidar_link"/>
-    <origin xyz="0.0 0.0 ${base_height}" rpy="0 0 0"/>
+    <origin xyz="0.215 0.0 0.30" rpy="0 0 0"/>
   </joint>
     
   <gazebo reference="lidar_link">
