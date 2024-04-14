@@ -20,6 +20,7 @@ def generate_launch_description():
   package_name = 'two_wheeled_robot'
   robot_name_in_model = 'two_wheeled_robot'
   rviz_config_file_path = 'rviz/urdf_gazebo_config.rviz'
+  gazebo_config_file_path = 'config/gazebo_params.yaml'
   urdf_file_path = 'urdf/two_wheeled_robot_nav2.urdf'
   world_file_path = 'worlds/empty.world'
     
@@ -36,6 +37,7 @@ def generate_launch_description():
   pkg_share = FindPackageShare(package=package_name).find(package_name)
   default_urdf_model_path = os.path.join(pkg_share, urdf_file_path)
   default_rviz_config_path = os.path.join(pkg_share, rviz_config_file_path)
+  default_gazebo_config_path = os.path.join(pkg_share, gazebo_config_file_path)
   world_path = os.path.join(pkg_share, world_file_path)
   gazebo_models_path = os.path.join(pkg_share, gazebo_models_path)
   os.environ["GAZEBO_MODEL_PATH"] = gazebo_models_path
@@ -113,8 +115,7 @@ def generate_launch_description():
   start_robot_state_publisher_cmd = Node(
     package='robot_state_publisher',
     executable='robot_state_publisher',
-    parameters=[{'robot_description': Command(['xacro ', urdf_model])}, 
-                {'use_sim_time': True}])
+    parameters=[{'robot_description': Command(['xacro ', urdf_model]),'use_sim_time': True}])
 
   # Publish the joint states of the robot
   start_joint_state_publisher_cmd = Node(
@@ -132,17 +133,24 @@ def generate_launch_description():
     output='screen',
     parameters=[{'use_sim_time': True}],
     arguments=['-d', rviz_config_file])
+  
+  #Start Gazebo
+  start_gazebo = ExecuteProcess(cmd=['gazebo', '--verbose', world, '-s', 
+                               'libgazebo_ros_init.so', '-s', 
+                               'libgazebo_ros_factory.so', 
+                               '--ros-args', '--params-file', default_gazebo_config_path], 
+                               output='screen',)
 
   # Start Gazebo server
-  start_gazebo_server_cmd = IncludeLaunchDescription(
-    PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')),
-    condition=IfCondition(use_simulator),
-    launch_arguments={'world': world}.items())
+  #start_gazebo_server_cmd = IncludeLaunchDescription(
+   # PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')),
+    #condition=IfCondition(use_simulator),
+    #launch_arguments={'world': world}.items())
 
   # Start Gazebo client    
-  start_gazebo_client_cmd = IncludeLaunchDescription(
-    PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')),
-    condition=IfCondition(PythonExpression([use_simulator, ' and not ', headless])))
+  #start_gazebo_client_cmd = IncludeLaunchDescription(
+   # PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')),
+   # condition=IfCondition(PythonExpression([use_simulator, ' and not ', headless])))
 
   # Launch the robot
   spawn_entity_cmd = Node(
@@ -160,6 +168,7 @@ def generate_launch_description():
   ld = LaunchDescription()
 
   # Declare the launch options
+
   ld.add_action(declare_use_joint_state_publisher_cmd)
   ld.add_action(declare_namespace_cmd)
   ld.add_action(declare_use_namespace_cmd)
@@ -173,8 +182,9 @@ def generate_launch_description():
   ld.add_action(declare_world_cmd)
 
   # Add any actions
-  ld.add_action(start_gazebo_server_cmd)
-  ld.add_action(start_gazebo_client_cmd)
+  #ld.add_action(start_gazebo_server_cmd)
+  #ld.add_action(start_gazebo_client_cmd)
+  ld.add_action(start_gazebo)
   ld.add_action(spawn_entity_cmd)
   ld.add_action(start_robot_state_publisher_cmd)
   ld.add_action(start_joint_state_publisher_cmd)
