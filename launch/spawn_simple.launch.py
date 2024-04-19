@@ -163,6 +163,14 @@ def generate_launch_description():
                     '-z', spawn_z_val,
                     '-Y', spawn_yaw_val],
                     output='screen')
+  
+  start_publish_wr_wl = Node(
+    package='two_wheeled_robot',
+    executable='publish_wr_wl.py',
+    output='screen',
+    emulate_tty=True,
+    parameters=[{'use_sim_time': True}]
+  )
 
   # Create the launch description and populate
   ld = LaunchDescription()
@@ -188,6 +196,7 @@ def generate_launch_description():
   ld.add_action(spawn_entity_cmd)
   ld.add_action(start_robot_state_publisher_cmd)
   ld.add_action(start_joint_state_publisher_cmd)
+  ld.add_action(start_publish_wr_wl)
   ld.add_action(start_rviz_cmd)
 
   return ld

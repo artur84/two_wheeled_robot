@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import numpy as np 
 from std_msgs.msg import Float32
 import rclpy
