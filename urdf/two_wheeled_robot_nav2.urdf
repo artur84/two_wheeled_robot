@@ -363,7 +363,7 @@
 
       <!-- output -->
       <!-- When false, publish no wheel odometry data to a ROS topic -->
-      <publish_odom>true</publish_odom>
+      <publish_odom>false</publish_odom>
 
       <!-- When true, publish coordinate transform from odom to base_footprint -->
       <!-- I usually use the robot_localization package to publish this transform -->   
@@ -373,7 +373,7 @@
       <!-- The robot_state_publisher package is often used to publish this transform -->   
       <publish_wheel_tf>true</publish_wheel_tf>
 
-      <odometry_topic>odom</odometry_topic>
+      <odometry_topic>simulated_odom</odometry_topic>
       <odometry_frame>odom</odometry_frame>
       <robot_base_frame>base_link</robot_base_frame>
        <!-- Odometry source, 0 for ENCODER, 1 for WORLD, defaults to WORLD -->
