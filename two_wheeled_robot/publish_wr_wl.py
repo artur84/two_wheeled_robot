@@ -4,6 +4,7 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
 
 
 
@@ -13,9 +14,9 @@ class PublishWheelSpeeds(Node):
     super().__init__('publish_wr_wl')
     self.create_subscription(Odometry, 'wheel/odometry', self.odom_cb, 10 )
     # Create wr publisher
-    self.pub_wr = self.create_publisher(Float32, 'VelocityEncR', 10)
+    self.pub_wr = self.create_publisher(Float32, 'VelocityEncR', qos_profile_sensor_data)
     # Create wr publisher
-    self.pub_wl = self.create_publisher(Float32, 'VelocityEncL', 10)
+    self.pub_wl = self.create_publisher(Float32, 'VelocityEncL', qos_profile_sensor_data)
 
     #Robot parameters
     self.L = 0.52 # wheel separation [m]
