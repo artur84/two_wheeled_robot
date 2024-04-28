@@ -91,10 +91,10 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <state world_name='default'>
-      <sim_time>211 163000000</sim_time>
-      <real_time>169 511344401</real_time>
-      <wall_time>1714087982 537902406</wall_time>
-      <iterations>169084</iterations>
+      <sim_time>536 786000000</sim_time>
+      <real_time>98 428425027</real_time>
+      <wall_time>1714333013 204134234</wall_time>
+      <iterations>98257</iterations>
       <model name='ground_plane'>
         <pose>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -106,80 +106,80 @@
         </link>
       </model>
       <model name='unit_sphere_blue'>
-        <pose>4.05618 0.001783 0.5 0 -0 0</pose>
+        <pose>8.33496 0.510206 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>4.05618 0.001783 0.5 0 -0 0</pose>
+          <pose>8.33496 0.510206 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_sphere_green'>
-        <pose>-0.012787 4.12922 0.5 0 -0 0</pose>
+        <pose>5.9823 2.83522 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-0.012787 4.12922 0.5 0 -0 0</pose>
+          <pose>5.9823 2.83522 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_sphere_orange'>
-        <pose>-2.85501 2.74797 0.5 0 -0 0</pose>
+        <pose>7.04721 2.29916 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-2.85501 2.74797 0.5 0 -0 0</pose>
+          <pose>7.04721 2.29916 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_sphere_pink'>
-        <pose>2.93611 3.05347 0.5 0 -0 0</pose>
+        <pose>7.99803 1.61127 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>2.93611 3.05347 0.5 0 -0 0</pose>
+          <pose>7.99803 1.61127 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_sphere_purple'>
-        <pose>2.90847 -3.17828 0.5 0 -0 0</pose>
+        <pose>8.4456 -0.517792 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>2.90847 -3.17828 0.5 0 -0 0</pose>
+          <pose>8.4456 -0.517792 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_sphere_red'>
-        <pose>-3.9923 0.055049 0.5 0 -0 0</pose>
+        <pose>7.99238 -1.56535 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-3.9923 0.055049 0.5 0 -0 0</pose>
+          <pose>7.99238 -1.56535 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_sphere_white'>
-        <pose>-3.07812 -2.99737 0.5 0 -0 0</pose>
+        <pose>7.3348 -2.49913 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-3.07812 -2.99737 0.5 0 -0 0</pose>
+          <pose>7.3348 -2.49913 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_sphere_yellow'>
-        <pose>0.006712 -4.1733 0.5 0 -0 0</pose>
+        <pose>6.3145 -3.08457 0.5 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.006712 -4.1733 0.5 0 -0 0</pose>
+          <pose>6.3145 -3.08457 0.5 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -191,7 +191,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>0.097528 0.018514 25.1191 3.14159 1.57079 3.14159</pose>
+        <pose>2.1842 -0.150469 25.3908 3.14159 1.57079 3.14159</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
